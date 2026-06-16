@@ -1,0 +1,82 @@
+:root {
+  --purple-border: hsl(300, 96%, 29%);
+  --gray-background: hsl(0, 0%, 13%);
+  --container-size: 34rem;
+  --border-radius: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  width: var(--container-size);
+  border: solid var(--purple-border) 5px;
+  border-bottom: none;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+.buttons-container > button {
+  font-size: 1.25rem;
+  font-weight: 500;
+  height: 60px;
+  flex-grow: 1;
+  background-color: var(--gray-background);
+  border: none;
+  border-left: solid var(--purple-border) 5px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.buttons-container > button:first-of-type {
+  border-left: none;
+}
+.buttons-container button:hover {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+form {
+  overflow: hidden;
+  width: var(--container-size);
+  border: solid var(--purple-border) 5px;
+  padding: 5px;
+  background-color: var(--gray-background);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+ul {
+  display: flex;
+  max-width: 100%;
+  transform: translatex(-67rem);
+  transition: all 0.3s ease-out;
+}
+
+li {
+  list-style: none;
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 5px;
+  padding: 15px;
+}
+
+fieldset {
+  border: none;
+}
+legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  padding-left: 10px;
+}
+
+input,
+textarea {
+  margin: 0 15px;
+  color: black;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+}

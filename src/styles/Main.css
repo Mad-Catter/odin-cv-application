@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Elms Sans', sans-serif;
+  font-size: 1.1rem;
+  color: white;
+}
+main {
+  display: flex;
+  max-height: 100vh;
+  height: 100vh;
+  background-color: hsl(0, 0%, 28%);
+}
+
+.form-wrapper {
+  max-width: 40%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.application-container {
+  max-width: 60%;
+  width: 60%;
+  display: flex;
+  padding: 1.5%;
+}

@@ -17,7 +17,7 @@ export default function App() {
   const [jobStart, setJobStart] = useState();
   const [jobEnd, setJobEnd] = useState();
   return (
-    <>
+    <main>
       <Form
         setName={setName}
         setEmail={setEmail}
@@ -46,6 +46,6 @@ export default function App() {
         jobStart={jobStart}
         jobEnd={jobEnd}
       />
-    </>
+    </main>
   );
 }

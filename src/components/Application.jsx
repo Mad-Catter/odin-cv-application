@@ -1,9 +1,13 @@
+import '../styles/Application.css';
+
 export default function Application({ name, email, phone }) {
   return (
-    <>
-      <p>{name}</p>
-      <p>{email}</p>
-      <p>{phone}</p>
-    </>
+    <div className="application-container">
+      <div className="application">
+        <p>Name: {name}</p>
+        <p>Email: {email}</p>
+        <p>Phone: {phone}</p>
+      </div>
+    </div>
   );
 }

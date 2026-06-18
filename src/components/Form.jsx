@@ -2,34 +2,39 @@ import '../styles/Form.css';
 // TODO: Change this from magic number bs to something that scales if possible.
 // Maybe add arrow buttons to the bottom of the ul
 
-// Function 1.
-// The inputs do not edit ther state on change, and instead the state is only changed upon clicking submit (closest to current code) and sets the inputs to disabled
-// Clicking edit resets the states to nothing and reenables the inputs
-function submitChanges(e, inputs, stateSetters, numChange) {
-  console.log(inputs);
-  console.log(stateSetters);
-  if (inputs.length !== stateSetters.length) {
-    throw new Error('Inputs and setters are not equal');
+// Problems with these functions: it might be cleaner to make them one function.
+// This does not submit the form and thus the required attribute are avoided and the client side verification doesnt work.
+// buttonPressed is a bad name.
+// Editing components might have been a better solution for learning, if more difficult.
+
+// Originally I had this written to simply check the buttons own name to decide whether the button should edit or not.  This takes away control from the dom.  However,
+// This is much harder to read.
+const editableButtonLog = {
+  personalEdit: false,
+  educationEdit: false,
+  experienceEdit: false,
+};
+
+function buttonPressed(e, inputs, stateSetters, numChange, editBool) {
+  if (!editableButtonLog[editBool]) {
+    for (let i = 0; i < inputs.length; i++) {
+      const setState = stateSetters[i];
+      const input = inputs[i];
+      setState(input.value);
+      input.setAttribute('disabled', true);
+    }
+    e.target.textContent = 'Edit';
+    jankChange(numChange);
+  } else {
+    for (let i = 0; i < inputs.length; i++) {
+      const setState = stateSetters[i];
+      const input = inputs[i];
+      setState('');
+      input.removeAttribute('disabled');
+    }
+    e.target.textContent = 'Submit';
   }
-  for (let i = 0; i < inputs.length; i++) {
-    const setState = stateSetters[i];
-    const input = inputs[i];
-    setState(input.value);
-    input.setAttribute('disabled', true);
-  }
-  e.target.textContent = 'Edit';
-  e.target.onClick = (e) => editChanges(e, inputs, stateSetters, numChange);
-  jankChange(numChange);
-}
-function editChanges(e, inputs, stateSetters, numChange) {
-  for (let i = 0; i < inputs.length; i++) {
-    const setState = stateSetters[i];
-    const input = inputs[i];
-    setState('');
-    input.removeAttribute('disabled');
-  }
-  e.target.textContent = 'Submit';
-  e.target.onClick = (e) => submitChanges(e, inputs, stateSetters, numChange);
+  editableButtonLog[editBool] = !editableButtonLog[editBool];
 }
 function jankChange(num) {
   const ul = document.querySelector('ul');
@@ -49,10 +54,6 @@ export default function Form({
   setJobStart,
   setJobEnd,
 }) {
-  // Name here (names separate?)
-  // Email and phone on the same line
-  // School (name. study, times of study)
-  // Practical expirence related to job (company name, position, desc of job, time of job)
   return (
     <div className="form-wrapper">
       <div className="buttons-container">
@@ -73,21 +74,27 @@ export default function Form({
               <legend>Personal Info:</legend>
               <div className="input-container">
                 <label htmlFor="name">Name:*</label>
-                <input type="text" name="email" id="name" onChange={(e) => setName(e.target.value)} required />
+                <input type="text" name="email" id="name" required />
               </div>
               <div className="input-container">
                 <label htmlFor="email">Email:*</label>
-                <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} required />
+                <input type="email" name="email" id="email" required />
               </div>
               <div className="input-container">
                 <label htmlFor="phone">Phone Number:*</label>
-                <input type="phone" name="phone" id="phone" onChange={(e) => setPhone(e.target.value)} required />
+                <input type="phone" name="phone" id="phone" required />
               </div>
               <button
                 type="button"
                 className="submit"
                 onClick={(e) =>
-                  submitChanges(e, document.querySelectorAll('.personal input'), [setName, setEmail, setPhone], -33.5)
+                  buttonPressed(
+                    e,
+                    document.querySelectorAll('.personal input'),
+                    [setName, setEmail, setPhone],
+                    -33.5,
+                    0
+                  )
                 }
               >
                 Submit
@@ -95,32 +102,44 @@ export default function Form({
             </fieldset>
           </li>
           <li>
-            <fieldset>
+            <fieldset className="education">
               <legend>Education:</legend>
               <div className="input-container">
                 <label htmlFor="school">School Name:</label>
-                <input type="text" name="school" id="school" onChange={(e) => setSchool(e.target.value)} />
+                <input type="text" name="school" id="school" />
               </div>
               <div className="input-container">
                 <label htmlFor="study">Field of Study:</label>
-                <input type="text" name="study" id="study" onChange={(e) => setStudy(e.target.value)} />
+                <input type="text" name="study" id="study" />
               </div>
 
               <div className="input-container">
                 <label htmlFor="studyStart">Start Date:</label>
-                <input type="date" name="studyStart" id="studyStart" onChange={(e) => setStudyStart(e.target.value)} />
+                <input type="date" name="studyStart" id="studyStart" />
               </div>
               <div className="input-container">
                 <label htmlFor="studyEnd">End Date:</label>
-                <input type="date" name="studyEnd" id="studyEnd" onChange={(e) => setStudyEnd(e.target.value)} />
+                <input type="date" name="studyEnd" id="studyEnd" />
               </div>
-              <button type="button" className="submit">
+              <button
+                type="button"
+                className="submit"
+                onClick={(e) =>
+                  buttonPressed(
+                    e,
+                    document.querySelectorAll('.education input'),
+                    [setSchool, setStudy, setStudyStart, setStudyEnd],
+                    -67,
+                    1
+                  )
+                }
+              >
                 Submit
               </button>
             </fieldset>
           </li>
           <li>
-            <fieldset>
+            <fieldset className="experience">
               <legend>Prior Experience:</legend>
               <div className="input-container">
                 <label htmlFor="company">Company Name:</label>
@@ -144,7 +163,19 @@ export default function Form({
                 <label htmlFor="jobDesc">Job Description:</label>
                 <textarea name="jobDesc" id="jobDesc" onChange={(e) => setJobDesc(e.target.value)}></textarea>
               </div>
-              <button type="button" className="submit">
+              <button
+                type="button"
+                className="submit"
+                onClick={(e) =>
+                  buttonPressed(
+                    e,
+                    document.querySelectorAll('.experience input, .experience textarea'),
+                    [setCompany, setTitle, setJobStart, setJobEnd, setJobDesc],
+                    -67,
+                    2
+                  )
+                }
+              >
                 Submit
               </button>
             </fieldset>

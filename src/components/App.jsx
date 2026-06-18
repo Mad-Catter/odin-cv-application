@@ -1,6 +1,13 @@
 import Form from './Form.jsx';
 import Application from './Application.jsx';
 import { useState } from 'react';
+
+// Function 1.
+// The inputs do not edit ther state on change, and instead the state is only changed upon clicking submit (closest to current code) and sets the inputs to disabled
+// Clicking edit resets the states to nothing and reenables the inputs
+// Function 2.
+// The inputs edit on changes but the application does not edit itself upon state changes.  Instead when the submit gets pressed the application (or sub-application components) refreshed with the current state.
+// When clicking edit, the component gets refreshed with an empty values.
 export default function App() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState();

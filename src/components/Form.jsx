@@ -2,7 +2,7 @@ import '../styles/Form.css';
 // TODO: Change this from magic number bs to something that scales if possible.
 // Maybe add arrow buttons to the bottom of the ul
 
-// Problems with these functions: it might be cleaner to make them one function.
+// Problems with these functions:
 // This does not submit the form and thus the required attribute are avoided and the client side verification doesnt work.
 // buttonPressed is a bad name.
 // Editing components might have been a better solution for learning, if more difficult.
@@ -143,25 +143,25 @@ export default function Form({
               <legend>Prior Experience:</legend>
               <div className="input-container">
                 <label htmlFor="company">Company Name:</label>
-                <input type="text" name="company" id="company" onChange={(e) => setCompany(e.target.value)} />
+                <input type="text" name="company" id="company" />
               </div>
               <div className="input-container">
                 <label htmlFor="title">Position Title:</label>
-                <input type="text" name="title" id="title" onChange={(e) => setTitle(e.target.value)} />
+                <input type="text" name="title" id="title" />
               </div>
 
               <div className="input-container">
                 <label htmlFor="jobStart">Start Date:</label>
-                <input type="date" name="jobStart" id="jobStart" onChange={(e) => setJobStart(e.target.value)} />
+                <input type="date" name="jobStart" id="jobStart" />
               </div>
               <div className="input-container">
                 <label htmlFor="jobEnd">End Date:</label>
-                <input type="date" name="jobEnd" id="jobEnd" onChange={(e) => setJobEnd(e.target.value)} />
+                <input type="date" name="jobEnd" id="jobEnd" />
               </div>
 
               <div className="input-container">
                 <label htmlFor="jobDesc">Job Description:</label>
-                <textarea name="jobDesc" id="jobDesc" onChange={(e) => setJobDesc(e.target.value)}></textarea>
+                <textarea name="jobDesc" id="jobDesc"></textarea>
               </div>
               <button
                 type="button"

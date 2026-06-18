@@ -98,4 +98,27 @@ textarea {
 
 .submit:hover {
   transform: scale(1.15);
+  animation:
+    submit-rocking-intro ease-in-out 0.5s,
+    submit-rocking ease-in-out 2s infinite 0.5s;
+}
+@keyframes submit-rocking-intro {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes submit-rocking {
+  from {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  to {
+    transform: rotate(-15deg);
+  }
 }

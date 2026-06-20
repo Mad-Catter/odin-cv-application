@@ -1,4 +1,5 @@
 import '../styles/Form.css';
+import defaultProfile from '../assets/blank-profile.png';
 // TODO: Change this from magic number bs to something that scales if possible.
 // Maybe add arrow buttons to the bottom of the ul
 
@@ -20,7 +21,13 @@ function buttonPressed(e, inputs, stateSetters, numChange, editBool) {
     for (let i = 0; i < inputs.length; i++) {
       const setState = stateSetters[i];
       const input = inputs[i];
-      setState(input.value);
+      if (input.type === 'file' && input.value !== '') {
+        console.log(input.value);
+        setState(URL.createObjectURL(input.files[0]));
+      } else {
+        setState(input.value);
+      }
+
       input.setAttribute('disabled', true);
     }
     e.target.textContent = 'Edit';
@@ -29,7 +36,12 @@ function buttonPressed(e, inputs, stateSetters, numChange, editBool) {
     for (let i = 0; i < inputs.length; i++) {
       const setState = stateSetters[i];
       const input = inputs[i];
-      setState('');
+      if (input.type === 'file') {
+        setState(defaultProfile);
+      } else {
+        setState('');
+      }
+
       input.removeAttribute('disabled');
     }
     e.target.textContent = 'Submit';
@@ -44,6 +56,7 @@ export default function Form({
   setName,
   setEmail,
   setPhone,
+  setProfile,
   setSchool,
   setStudy,
   setStudyStart,
@@ -55,7 +68,7 @@ export default function Form({
   setJobEnd,
 }) {
   return (
-    <div className="form-wrapper">
+    <div className="form-container">
       <div className="buttons-container">
         <button type="button" onClick={() => jankChange(0)}>
           Personal
@@ -84,6 +97,10 @@ export default function Form({
                 <label htmlFor="phone">Phone Number:*</label>
                 <input type="phone" name="phone" id="phone" required />
               </div>
+              <div className="input-container">
+                <label htmlFor="profile">Profile Picture:</label>
+                <input type="file" name="profile" id="profile" accept=".jpg, .png" />
+              </div>
               <button
                 type="button"
                 className="submit"
@@ -91,7 +108,7 @@ export default function Form({
                   buttonPressed(
                     e,
                     document.querySelectorAll('.personal input'),
-                    [setName, setEmail, setPhone],
+                    [setName, setEmail, setPhone, setProfile],
                     -33.5,
                     0
                   )
@@ -182,6 +199,9 @@ export default function Form({
           </li>
         </ul>
       </form>
+      <button type="button" class="download">
+        Download PDF
+      </button>
     </div>
   );
 }

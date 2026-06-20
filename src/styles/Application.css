@@ -4,16 +4,19 @@
   width: 77%;
   height: 100%;
   font-family: 'Playfair display', sans-serif;
-  background-color: hsl(0, 0%, 89%);
+  background-color: hsl(0, 0%, 100%);
   display: flex;
 }
 .application * {
   font-family: inherit;
   color: black;
 }
+.application p {
+  font-size: 1.25rem;
+}
 
 .left-banner {
-  width: 25%;
+  width: 30%;
   height: 100%;
   background-color: hsl(0, 0%, 47%);
   display: flex;
@@ -29,6 +32,7 @@
 }
 .left-banner p {
   padding: 50px 0;
+  color: white;
 }
 
 .content {

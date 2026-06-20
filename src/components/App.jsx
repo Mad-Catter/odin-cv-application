@@ -1,11 +1,13 @@
 import Form from './Form.jsx';
 import Application from './Application.jsx';
 import { useState } from 'react';
+import defaultProfile from '../assets/blank-profile.png';
 
 export default function App() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
+  const [profile, setProfile] = useState(defaultProfile);
   // school
   const [school, setSchool] = useState();
   const [study, setStudy] = useState();
@@ -23,6 +25,7 @@ export default function App() {
         setName={setName}
         setEmail={setEmail}
         setPhone={setPhone}
+        setProfile={setProfile}
         setSchool={setSchool}
         setStudy={setStudy}
         setStudyStart={setStudyStart}
@@ -37,6 +40,7 @@ export default function App() {
         name={name}
         email={email}
         phone={phone}
+        profile={profile}
         school={school}
         study={study}
         studyStart={studyStart}

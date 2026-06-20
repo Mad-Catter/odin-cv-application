@@ -1,10 +1,11 @@
 import '../styles/Application.css';
-import profile from '../assets/blank-profile.png';
+// import profile from '../assets/blank-profile.png';
 
 export default function Application({
   name,
   email,
   phone,
+  profile,
   school,
   study,
   studyStart,
@@ -30,7 +31,7 @@ export default function Application({
             <p>School: {school}</p>
             <p>Field of Study: {study}</p>
             <p>
-              Dates Attended: {studyStart} - {studyEnd}
+              Dates Attended: {studyStart} {studyStart && studyEnd ? '-' : ''} {studyEnd}
             </p>
           </section>
           <section>
@@ -38,7 +39,7 @@ export default function Application({
             <p>Company: {company}</p>
             <p>Position Title: {title}</p>
             <p>
-              Dates Employed: {jobStart} - {jobEnd}
+              Dates Employed: {jobStart} {jobStart && jobEnd ? '-' : ''} {jobEnd}
             </p>
             <p>Job Description: {jobDesc}</p>
           </section>

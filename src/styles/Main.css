@@ -13,7 +13,7 @@ main {
   background-color: hsl(0, 0%, 28%);
 }
 
-.form-wrapper {
+.form-container {
   max-width: 40%;
   width: 40%;
   display: flex;

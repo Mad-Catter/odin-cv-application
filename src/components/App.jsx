@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import defaultProfile from '../assets/blank-profile.png';
 
 export default function App() {
+  // personal
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
@@ -21,6 +22,7 @@ export default function App() {
   const [jobDesc, setJobDesc] = useState();
   const [jobStart, setJobStart] = useState();
   const [jobEnd, setJobEnd] = useState();
+
   const targetRef = useRef();
   return (
     <main>

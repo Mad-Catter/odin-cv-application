@@ -1,38 +1,32 @@
 import '../styles/Form.css';
 import generatePDF from 'react-to-pdf';
 import defaultProfile from '../assets/blank-profile.png';
-// TODO: Change this from magic number bs to something that scales if possible.
-// Maybe add arrow buttons to the bottom of the ul
-
-// Problems with these functions:
-// This does not submit the form and thus the required attribute are avoided and the client side verification doesnt work.
-// buttonPressed is a bad name.
-// Editing components might have been a better solution for learning, if more difficult.
 
 // Originally I had this written to simply check the buttons own name to decide whether the button should edit or not.  This takes away control from the dom.  However,
 // This is much harder to read.
-const editableButtonLog = {
+const isButtonEdit = {
   personalEdit: false,
   educationEdit: false,
   experienceEdit: false,
 };
-
-function buttonPressed(e, inputs, stateSetters, numChange, editBool) {
-  if (!editableButtonLog[editBool]) {
+function formShift(num) {
+  const ul = document.querySelector('ul');
+  ul.style.transform = `translatex(${num}rem)`;
+}
+function handleClick(e, inputs, stateSetters, shiftValue, btnNum) {
+  if (!isButtonEdit[btnNum]) {
     for (let i = 0; i < inputs.length; i++) {
       const setState = stateSetters[i];
       const input = inputs[i];
       if (input.type === 'file' && input.value !== '') {
-        console.log(input.value);
         setState(URL.createObjectURL(input.files[0]));
       } else {
         setState(input.value);
       }
-
       input.setAttribute('disabled', true);
     }
     e.target.textContent = 'Edit';
-    jankChange(numChange);
+    formShift(shiftValue);
   } else {
     for (let i = 0; i < inputs.length; i++) {
       const setState = stateSetters[i];
@@ -47,12 +41,9 @@ function buttonPressed(e, inputs, stateSetters, numChange, editBool) {
     }
     e.target.textContent = 'Submit';
   }
-  editableButtonLog[editBool] = !editableButtonLog[editBool];
+  isButtonEdit[btnNum] = !isButtonEdit[btnNum];
 }
-function jankChange(num) {
-  const ul = document.querySelector('ul');
-  ul.style.transform = `translatex(${num}rem)`;
-}
+
 export default function Form({
   setName,
   setEmail,
@@ -72,13 +63,13 @@ export default function Form({
   return (
     <div className="form-container">
       <div className="buttons-container">
-        <button type="button" onClick={() => jankChange(0)}>
+        <button type="button" onClick={() => formShift(0)}>
           Personal
         </button>
-        <button type="button" onClick={() => jankChange(-33.5)}>
+        <button type="button" onClick={() => formShift(-33.5)}>
           Education
         </button>
-        <button type="button" onClick={() => jankChange(-67)}>
+        <button type="button" onClick={() => formShift(-67)}>
           Experience
         </button>
       </div>
@@ -107,7 +98,7 @@ export default function Form({
                 type="button"
                 className="submit"
                 onClick={(e) =>
-                  buttonPressed(
+                  handleClick(
                     e,
                     document.querySelectorAll('.personal input'),
                     [setName, setEmail, setPhone, setProfile],
@@ -144,7 +135,7 @@ export default function Form({
                 type="button"
                 className="submit"
                 onClick={(e) =>
-                  buttonPressed(
+                  handleClick(
                     e,
                     document.querySelectorAll('.education input'),
                     [setSchool, setStudy, setStudyStart, setStudyEnd],
@@ -186,7 +177,7 @@ export default function Form({
                 type="button"
                 className="submit"
                 onClick={(e) =>
-                  buttonPressed(
+                  handleClick(
                     e,
                     document.querySelectorAll('.experience input, .experience textarea'),
                     [setCompany, setTitle, setJobStart, setJobEnd, setJobDesc],

@@ -1,6 +1,4 @@
 import '../styles/Application.css';
-// import profile from '../assets/blank-profile.png';
-
 export default function Application({
   name,
   email,

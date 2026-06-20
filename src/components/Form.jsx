@@ -18,8 +18,8 @@ function handleClick(e, inputs, stateSetters, shiftValue, btnNum) {
     for (let i = 0; i < inputs.length; i++) {
       const setState = stateSetters[i];
       const input = inputs[i];
-      if (input.type === 'file' && input.value !== '') {
-        setState(URL.createObjectURL(input.files[0]));
+      if (input.type === 'file') {
+        if (input.value !== '') setState(URL.createObjectURL(input.files[0]));
       } else {
         setState(input.value);
       }

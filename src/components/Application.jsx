@@ -15,10 +15,11 @@ export default function Application({
   jobDesc,
   jobStart,
   jobEnd,
+  targetRef,
 }) {
   return (
     <div className="application-container">
-      <div className="application">
+      <div className="application" ref={targetRef}>
         <aside className="left-banner">
           <img src={profile} alt="blank profile pic" />
           <p>Name: {name}</p>

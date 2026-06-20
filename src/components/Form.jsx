@@ -1,4 +1,5 @@
 import '../styles/Form.css';
+import generatePDF from 'react-to-pdf';
 import defaultProfile from '../assets/blank-profile.png';
 // TODO: Change this from magic number bs to something that scales if possible.
 // Maybe add arrow buttons to the bottom of the ul
@@ -66,6 +67,7 @@ export default function Form({
   setJobDesc,
   setJobStart,
   setJobEnd,
+  targetRef,
 }) {
   return (
     <div className="form-container">
@@ -199,7 +201,20 @@ export default function Form({
           </li>
         </ul>
       </form>
-      <button type="button" class="download">
+      <button
+        type="button"
+        className="download"
+        onClick={() =>
+          generatePDF(targetRef, {
+            filename: 'CV.pdf',
+            page: {
+              margin: 0,
+              format: 'letter',
+              orientation: 'portrait',
+            },
+          })
+        }
+      >
         Download PDF
       </button>
     </div>

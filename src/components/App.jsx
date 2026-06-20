@@ -1,6 +1,8 @@
 import Form from './Form.jsx';
 import Application from './Application.jsx';
 import { useState } from 'react';
+import { useRef } from 'react';
+
 import defaultProfile from '../assets/blank-profile.png';
 
 export default function App() {
@@ -19,6 +21,7 @@ export default function App() {
   const [jobDesc, setJobDesc] = useState();
   const [jobStart, setJobStart] = useState();
   const [jobEnd, setJobEnd] = useState();
+  const targetRef = useRef();
   return (
     <main>
       <Form
@@ -35,6 +38,7 @@ export default function App() {
         setJobDesc={setJobDesc}
         setJobStart={setJobStart}
         setJobEnd={setJobEnd}
+        targetRef={targetRef}
       />
       <Application
         name={name}
@@ -50,6 +54,7 @@ export default function App() {
         jobDesc={jobDesc}
         jobStart={jobStart}
         jobEnd={jobEnd}
+        targetRef={targetRef}
       />
     </main>
   );
